@@ -1,0 +1,194 @@
+
+--- a/drivers/power/supply/axp/axp2585/axp2585.c	2022-09-01 10:46:35.786464423 -0400
++++ b/drivers/power/supply/axp/axp2585/axp2585.c	2022-09-01 10:10:45.303013919 -0400
+@@ -331,7 +331,7 @@
+ 	axp_platform_ops_set(axp2585->pmu_num, &axp2585_platform_ops);
+ 	printk("[%s]===%s===line:%d=========\n",__FILE__,__func__,__LINE__);
+ 
+-	axp2585_ws = wakeup_source_register("axp2585_wakeup_source");
++	axp2585_ws = wakeup_source_register(axp2585->dev, "axp2585_wakeup_source");
+ printk("Quit %s\n",__func__);
+ 	return 0;
+ }
+
+--- a/drivers/power/supply/axp/axp2585/axp2585-charger.c	2022-09-01 10:46:35.786464423 -0400
++++ b/drivers/power/supply/axp/axp2585/axp2585-charger.c	2022-09-01 10:10:45.303013919 -0400
+@@ -5,6 +5,7 @@
+ #include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ #include <linux/platform_device.h>
+ #include <linux/workqueue.h>
+ #include <linux/types.h>
+@@ -809,7 +810,8 @@
+ }
+ 
+ static const struct of_device_id axp2585_charger_dt_ids[] = {
+-	{ .compatible = "axp2585-charger", },
++	{ .compatible = "axp2585-charger",
++	  .data = NULL },
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, axp2585_charger_dt_ids);
+@@ -817,7 +819,7 @@
+ static struct platform_driver axp2585_charger_driver = {
+ 	.driver     = {
+ 		.name   = "axp2585-charger",
+-		.of_match_table = axp2585_charger_dt_ids,
++		.of_match_table =  of_match_ptr(axp2585_charger_dt_ids),
+ 	},
+ 	.probe    = axp2585_charger_probe,
+ 	.remove   = axp2585_charger_remove,
+@@ -826,20 +828,7 @@
+ 	.shutdown = axp2585_charger_shutdown,
+ };
+ 
+-static int __init axp2585_charger_initcall(void)
+-{
+-	int ret;
+-
+-	ret = platform_driver_register(&axp2585_charger_driver);
+-	if (IS_ERR_VALUE(ret)) {
+-		pr_err("%s: failed, errno %d\n", __func__, ret);
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-//fs_initcall_sync(axp2585_charger_initcall);
+-late_initcall(axp2585_charger_initcall);
++module_platform_driver(axp2585_charger_driver);
+ 
+ MODULE_LICENSE("GPL");
+ MODULE_AUTHOR("Roy <qiuzhigang@allwinnertech.com>");
+
+--- a/drivers/power/supply/axp/axp-charger.c	2022-09-01 10:46:35.786464423 -0400
++++ b/drivers/power/supply/axp/axp-charger.c	2022-09-01 10:10:45.303013919 -0400
+@@ -379,9 +379,9 @@
+ 			chg_dev->usb_det, chg_dev->ac_det);
+ }
+ 
+-static void axp_charger_update_usb_state(unsigned long data)
++static void axp_charger_update_usb_state(struct timer_list *t)
+ {
+-	struct axp_charger_dev *chg_dev = (struct axp_charger_dev *)data;
++	struct axp_charger_dev *chg_dev = from_timer(chg_dev, t, usb_status_timer);
+ 
+ 	axp_usb_ac_check_status(chg_dev);
+ 
+@@ -1219,8 +1219,7 @@
+ 	if (info->batt->runtime_chgcur && info->batt->set_chg_cur)
+ 		info->batt->set_chg_cur(chg_dev, info->batt->runtime_chgcur);
+ 
+-	setup_timer(&chg_dev->usb_status_timer,
+-			axp_charger_update_usb_state, (unsigned long)chg_dev);
++	timer_setup(&chg_dev->usb_status_timer, axp_charger_update_usb_state, 0);
+ 	INIT_DELAYED_WORK(&(chg_dev->usbwork), axp_usb);
+ 
+ 	axp_usb_ac_check_status(chg_dev);
+
+--- a/drivers/power/supply/axp/axp-gpio.c	2022-09-01 10:46:35.786464423 -0400
++++ b/drivers/power/supply/axp/axp-gpio.c	2022-09-01 10:10:45.303013919 -0400
+@@ -32,7 +32,7 @@
+ #include <linux/i2c.h>
+ #include "../../include/generated/uapi/linux/version.h"
+ #include "sunxi-gpio.h"
+-#include "../../pinctrl/core.h"
++#include "../../../pinctrl/core.h"
+ #include "axp-core.h"
+ #include "axp-gpio.h"
+ 
+@@ -403,12 +403,12 @@
+ 
+ static int axp_gpio_request(struct gpio_chip *chip, unsigned offset)
+ {
+-	return pinctrl_request_gpio(chip->base + offset);
++	return pinctrl_gpio_request(chip->base + offset);
+ }
+ 
+ static void axp_gpio_free(struct gpio_chip *chip, unsigned offset)
+ {
+-	pinctrl_free_gpio(chip->base + offset);
++	pinctrl_gpio_free(chip->base + offset);
+ }
+ 
+ static int axp_gpio_direction_input(struct gpio_chip *chip, unsigned offset)
+
+--- a/drivers/power/supply/axp/axp-sysfs.c	2022-09-01 10:46:35.786464423 -0400
++++ b/drivers/power/supply/axp/axp-sysfs.c	2022-09-01 10:10:45.303013919 -0400
+@@ -39,12 +39,14 @@
+ 
+ 	return count;
+ }
++static CLASS_ATTR_RW(axp_num);
+ 
+ static ssize_t axp_name_show(struct class *class,
+ 				struct class_attribute *attr, char *buf)
+ {
+ 	return sprintf(buf, "%s\n", get_pmu_cur_name(axp_num));
+ }
++static CLASS_ATTR_RO(axp_name);
+ 
+ static u8 axp_reg_addr;
+ 
+@@ -98,6 +100,7 @@
+ 
+ 	return count;
+ }
++static CLASS_ATTR_RW(axp_reg);
+ 
+ static u32 axp_regs_data_size = 2;
+ static ssize_t axp_regs_show(struct class *class,
+@@ -161,6 +164,7 @@
+ 
+ 	return count;
+ }
++static CLASS_ATTR_RW(axp_regs);
+ 
+ int axp_debug_mask;
+ 
+@@ -190,6 +194,8 @@
+ 
+ 	return s - buf;
+ }
++static CLASS_ATTR_RW(debugmask);
++
+ #if 0
+ static ssize_t add_sys_store(struct class *class,
+ 				struct class_attribute *attr,
+@@ -312,24 +318,20 @@
+ 	return count;
+ }
+ #endif
+-static struct class_attribute axp_class_attrs[] = {
+-	__ATTR(axp_name,      S_IRUGO,         axp_name_show,  NULL),
+-	__ATTR(axp_num,       S_IRUGO|S_IWUSR, axp_num_show,   axp_num_store),
+-	__ATTR(axp_reg,       S_IRUGO|S_IWUSR, axp_reg_show,   axp_reg_store),
+-	__ATTR(axp_regs,      S_IRUGO|S_IWUSR, axp_regs_show,  axp_regs_store),
+-	__ATTR(debug_mask,    S_IRUGO|S_IWUSR, debugmask_show, debugmask_store),
+-#if 0
+-	__ATTR(sys_pwr_add,   S_IWUSR,         NULL,           add_sys_store),
+-	__ATTR(sys_pwr_del,   S_IWUSR,         NULL,           del_sys_store),
+-	__ATTR(sys_pwr_get,   S_IRUGO,         get_sys_show,   NULL),
+-	__ATTR(sys_pwr_check, S_IRUGO|S_IWUSR, check_sys_show, check_sys_store),
+-#endif
+-	__ATTR_NULL
++
++static struct attribute *axp_class_attrs[] = {
++	&class_attr_axp_name.attr,
++	&class_attr_axp_num.attr,
++	&class_attr_axp_reg.attr,
++	&class_attr_axp_regs.attr,
++	&class_attr_debugmask.attr,
++	NULL
+ };
++ATTRIBUTE_GROUPS(axp_class);
+ 
+ struct class axp_class = {
+ 	.name = "axp",
+-	.class_attrs = axp_class_attrs,
++	.class_groups = axp_class_groups,
+ };
+ 
+ #ifdef CONFIG_AXP_TWI_USED

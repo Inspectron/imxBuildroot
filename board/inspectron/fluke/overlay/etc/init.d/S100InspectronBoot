@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# Author: Dan MacDonald
+# Company: Inspectron Inc. 2019
+# Description: 
+#     Boot script to do any project independent 
+#         system initialization, setup any flags
+#         and finally launch the project specific
+#         boot script
+# Usage:
+#     name this script S100<name> and put it in the /etc/init.d folder
+#     ensure the permissions are set to 0755
+#
+# Licensed under terms of GPLv2
+
+# console colors
+RED='\033[0;31m'
+ORNG='\033[0;33m'
+NC='\033[0;0m'
+
+case "$1" in
+        start)
+                # system level initialization, cores, etc
+                # setup flags
+                # launch the app boot script
+                echo -e "${ORNG} launch project boot script ${ORNG}"
+                sh /root/boot.sh &
+                ;;
+        stop)
+                ;;
+        restart|reload)
+                $0 stop
+                $0 start
+                ;;
+        *)
+                echo -e "${RED} Usage: $0 {start|stop|restart} ${NC}"
+                exit 1
+esac
+
+exit 0

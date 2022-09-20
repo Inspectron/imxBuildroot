@@ -1,0 +1,45 @@
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c	2022-09-19 11:08:19.020370738 -0400
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c	2022-09-19 11:37:06.733240086 -0400
+@@ -860,6 +860,15 @@
+ 	ILI9881C_COMMAND_INSTR(0xD1, 0x50),
+ 	ILI9881C_COMMAND_INSTR(0xD2, 0x5D),
+ 	ILI9881C_COMMAND_INSTR(0xD3, 0x23),
++
++	//ILI9881C_SWITCH_PAGE_INSTR(4),
++
++	//ILI9881C_COMMAND_INSTR(0x2F, 0x01), // this is the test pattern
++
++	ILI9881C_SWITCH_PAGE_INSTR(0),       
++	ILI9881C_COMMAND_INSTR(0x11, 0x00),
++	ILI9881C_COMMAND_INSTR(0x29, 0x00),
++
+ };
+ 
+ static inline struct ili9881c *panel_to_ili9881c(struct drm_panel *panel)
+@@ -925,7 +934,7 @@
+ 	msleep(20);
+ 
+ 	gpiod_set_value(ctx->reset, 0);
+-	msleep(20);
++	msleep(100); // increased here
+ 
+ 	for (i = 0; i < ctx->desc->init_length; i++) {
+ 		const struct ili9881c_instr *instr = &ctx->desc->init[i];
+@@ -1063,7 +1072,7 @@
+ };
+ 
+ static const struct drm_display_mode hsd070bww5_default_mode = {
+-	.clock		= 48500,
++	.clock		= 52000,
+ 
+ 	.hdisplay	= 800,
+ 	.hsync_start	= 800 + 52,
+@@ -1201,7 +1210,7 @@
+ 	.init = hsd070bww5_init,
+ 	.init_length = ARRAY_SIZE(hsd070bww5_init),
+ 	.mode = &hsd070bww5_default_mode,
+-	.mode_flags = MIPI_DSI_MODE_VIDEO_SYNC_PULSE,
++	.mode_flags = MIPI_DSI_MODE_VIDEO_BURST | MIPI_DSI_MODE_VIDEO,
+ };
+ 
+ static const struct of_device_id ili9881c_of_match[] = {
