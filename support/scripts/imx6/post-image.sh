@@ -70,7 +70,7 @@ main()
 	sed -e "s/%FILES%/${FILES}/" \
 		-e "s/%IMXOFFSET%/${IMXOFFSET}/" \
 		-e "s/%UBOOTBIN%/${UBOOTBIN}/" \
-		../../common/$(genimage_type) > ${GENIMAGE_CFG}
+		support/scripts/imx6/$(genimage_type) > ${GENIMAGE_CFG}
 
 	rm -rf "${GENIMAGE_TMP}"
 
