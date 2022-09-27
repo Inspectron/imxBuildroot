@@ -329,8 +329,14 @@
     /delete-property/ pinctrl-0;
 };
 
+&can1 {
+    /delete-property/ pinctrl-0;
+    status = "disabled";
+};
+
 /delete-node/ &pinctrl_hummingboard_spdif;
 /delete-node/ &pinctrl_hummingboard_usbh1_vbus;
+/delete-node/ &pinctrl_hummingboard_flexcan1;
 
 // set the usb-otg to pull up
 &pinctrl_hummingboard_usbotg_id {
