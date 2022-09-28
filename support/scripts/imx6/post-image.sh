@@ -66,6 +66,8 @@ main()
 	local UBOOTBIN="$(uboot_image)"
 	local GENIMAGE_CFG="$(mktemp --suffix genimage.cfg)"
 	local GENIMAGE_TMP="${BUILD_DIR}/genimage.tmp"
+	local APP_GENIMAGE_CFG="support/scripts/imx6/applicationimage.cfg"
+ 	local APPDATA_GENIMAGE_CFG="support/scripts/imx6/appdataimage.cfg"
 
 	sed -e "s/%FILES%/${FILES}/" \
 		-e "s/%IMXOFFSET%/${IMXOFFSET}/" \
@@ -73,6 +75,29 @@ main()
 		support/scripts/imx6/$(genimage_type) > ${GENIMAGE_CFG}
 
 	rm -rf "${GENIMAGE_TMP}"
+
+	genimage \
+		--rootpath "${BASE_DIR}/application"     \
+		--tmppath "${GENIMAGE_TMP}"    \
+		--inputpath "${BINARIES_DIR}"  \
+		--outputpath "${BINARIES_DIR}" \
+		--config "${APP_GENIMAGE_CFG}"
+
+	rm -rf "${GENIMAGE_TMP}"
+
+	genimage \
+		--rootpath "${BASE_DIR}/appdata"     \
+		--tmppath "${GENIMAGE_TMP}"    \
+		--inputpath "${BINARIES_DIR}"  \
+		--outputpath "${BINARIES_DIR}" \
+		--config "${APPDATA_GENIMAGE_CFG}"
+
+	rm -rf "${GENIMAGE_TMP}"
+
+	################################################
+	### create mnt directories for the partitions ##
+	################################################
+	mkdir -p $TARGET_DIR/mnt/app $TARGET_DIR/mnt/appdata $TARGET_DIR/mnt/userdata
 
 	genimage \
 		--rootpath "${TARGET_DIR}" \
