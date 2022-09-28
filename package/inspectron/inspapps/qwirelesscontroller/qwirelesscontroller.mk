@@ -3,37 +3,17 @@
 # qWirelessController
 #
 ################################################################################
-# branch bk7-v25b.02.22
-QWIRELESSCONTROLLER_VERSION = 919eca35cda9783754dc3186b26b8ff432e99c98
+# branch fluke 
+QWIRELESSCONTROLLER_VERSION = 88fcec443b5d89bfb66b79b7f94c75b08d40ead4
 QWIRELESSCONTROLLER_SITE = git@github.com:Inspectron/qWirelessController.git
 QWIRELESSCONTROLLER_SITE_METHOD = git
-QWIRELESSCONTROLLER_DEPENDENCIES = qt5base libqmqtt libqzxing libinspFileHandler qt5connectivity 
+QWIRELESSCONTROLLER_DEPENDENCIES = qt5base libinspFileHandler qt5connectivity 
 
 #define the project files that will be used in the qmake command
 #based on the configured board
-ifeq ($(BR2_PACKAGE_INSP_TINKERBOARD),y)
-QWIRELESSCONTROLLER_PRO_FILE = trunk/qWirelessControllerWiTorch.pro
+ifeq ($(BR2_PACKAGE_INSP_FLUKE_VAVE),y)
+QWIRELESSCONTROLLER_PRO_FILE = trunk/qWirelessControllerFluke.pro
 QWIRELESSCONTROLLER_SETTINGS_FILE = trunk/config/witorch/inspSettings.json
-endif
-
-ifeq ($(BR2_PACKAGE_INSP_WITORCH),y)
-QWIRELESSCONTROLLER_PRO_FILE = trunk/qWirelessControllerWiTorch.pro
-QWIRELESSCONTROLLER_SETTINGS_FILE = trunk/config/witorch/inspSettings.json
-endif
-
-ifeq ($(BR2_PACKAGE_INSP_ROTH_I3000),y)
-QWIRELESSCONTROLLER_PRO_FILE = trunk/qWirelessControllerRoth.pro
-QWIRELESSCONTROLLER_SETTINGS_FILE = trunk/config/roth/inspSettings.json
-endif
-
-ifeq ($(BR2_PACKAGE_INSP_ROCKCHIP_EVB),y)
-QWIRELESSCONTROLLER_PRO_FILE = trunk/qWirelessControllerWiTorch.pro
-QWIRELESSCONTROLLER_SETTINGS_FILE = trunk/config/witorch/inspSettings.json
-endif
-
-ifeq ($(BR2_PACKAGE_INSP_BK7XXX),y)
-QWIRELESSCONTROLLER_PRO_FILE = trunk/qWirelessControllerBK7XXX.pro
-QWIRELESSCONTROLLER_SETTINGS_FILE = trunk/config/bk7xxx/inspSettings.json
 endif
 
 define QWIRELESSCONTROLLER_CONFIGURE_CMDS

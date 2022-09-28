@@ -8,6 +8,7 @@ if BR2_PACKAGE_INSPECTRON_INSP_APPS
 	
 	# apps
 	source "package/inspectron/inspapps/qwirelesscontroller/Config.in"
+	source "package/inspectron/inspapps/flukehmi/Config.in"
 	source "package/inspectron/inspapps/traceserver/Config.in"
 	source "package/inspectron/inspapps/healthmonitor/Config.in"
 	# libs

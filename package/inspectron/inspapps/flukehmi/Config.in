@@ -1,0 +1,7 @@
+config BR2_PACKAGE_FLUKEHMI
+	bool "Fluke Demo HMI"
+	depends on BR2_PACKAGE_QT5
+	help
+		qt GUI for the Fluke project
+
+		www.inspectrontools.com
