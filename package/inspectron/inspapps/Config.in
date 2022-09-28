@@ -1,0 +1,21 @@
+config BR2_PACKAGE_INSPECTRON_INSP_APPS
+	bool "Inspectron Applications"
+	help
+		Inspectron UserSpace Application & libs that will 
+		be installed to the application partition
+
+if BR2_PACKAGE_INSPECTRON_INSP_APPS
+	
+	# apps
+	source "package/inspectron/inspapps/qwirelesscontroller/Config.in"
+	source "package/inspectron/inspapps/traceserver/Config.in"
+	source "package/inspectron/inspapps/healthmonitor/Config.in"
+	# libs
+	source "package/inspectron/inspapps/libinspCore/Config.in"
+	source "package/inspectron/inspapps/libinspFileHandler/Config.in"
+	# gstreamer plugins
+	
+	#scripts
+	#misc
+	
+endif

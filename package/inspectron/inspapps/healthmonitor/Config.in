@@ -1,0 +1,7 @@
+config BR2_PACKAGE_HEALTHMONITOR
+	bool "healthmonitor"
+	depends on BR2_PACKAGE_QT5
+	help
+		qt based watchdog for inspectron applications. See README.md for usage
+
+		www.inspectrontools.com

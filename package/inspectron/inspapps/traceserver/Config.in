@@ -1,0 +1,6 @@
+config BR2_PACKAGE_TRACESERVER
+	bool "traceserver"
+	depends on BR2_PACKAGE_QT5
+	help
+		qt based server that handles pushes all qDebug, qWarning, & qCritical 
+		debug statements into a FIFO that can be fetched remotely over a TCP socket

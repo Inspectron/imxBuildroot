@@ -1,0 +1,22 @@
+menuconfig BR2_PACKAGE_INSPECTRON
+	bool "Inspectron BSP packages"
+	help
+		Inspectron BSP Packages & configurations
+
+if BR2_PACKAGE_INSPECTRON
+choice
+	default BR2_PACKAGE_INSP_FLUKE_VAVE
+	prompt "Inspectron board selection"
+
+config BR2_PACKAGE_INSP_FLUKE_VAVE
+	bool "Inspectron Fluke VAVE"
+	help
+		Use Inspectron's Fluke VAVE board
+endchoice
+
+# BSP packages
+
+# Shared packages with all boards
+source "package/inspectron/inspscript/Config.in"
+source "package/inspectron/inspapps/Config.in"
+endif
