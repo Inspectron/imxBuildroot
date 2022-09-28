@@ -3,7 +3,7 @@
 # inspscript
 #
 ################################################################################
-INSPSCRIPT_VERSION = f920980f7bf99a2c45b77a39c38b2968aac6b83e
+INSPSCRIPT_VERSION = 4974c066806469e7b156a7286f5a7e62bd670de2
 INSPSCRIPT_SITE = git@github.com:Inspectron/inspscript.git
 INSPSCRIPT_SITE_METHOD = git
 
@@ -12,6 +12,10 @@ BOOT_SCRIPT = $(DEFAULT_BOOT_SCRIPT)
 
 DEFAULT_POWER_GPIO_SCRIPT = powerGPIO.sh
 POWER_GPIO_SCRIPT = $(DEFAULT_POWER_GPIO_SCRIPT)
+
+ifeq ($(BR2_PACKAGE_INSP_FLUKE_VAVE),y)
+BOOT_SCRIPT = fluke_vave_boot.sh
+endif
 
 ifeq ($(BR2_PACKAGE_INSP_TINKERBOARD),y)
 BOOT_SCRIPT = witorch_boot.sh
