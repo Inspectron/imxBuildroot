@@ -1,0 +1,7 @@
+config BR2_PACKAGE_INSPSCRIPT
+	bool "Inspectron scripts"
+	help
+		Inspectron project specific boot & helper scripts
+		
+		www.inspectrontools.com
+

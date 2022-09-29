@@ -47,4 +47,27 @@ image sdcard.img {
     partition-type = 0x83
     image = "rootfs.ext2"
   }
+
+  # application partition
+  partition application {
+    partition-type = 0x83
+    image = "application.ext4"
+    offset = 500M
+  }
+
+  # application data partition
+  partition appdata {
+    partition-type = 0x83
+    image = "appdata.ext4"
+    offset = 600M
+  }
+
+  # FAT32 user data partition occupies the remainder of the device
+  # TODO add the userdata partition
+  # partition userdata {
+  #  partition-type = 0x0c
+  #  #mountpoint = /mnt/userdata
+  #  autoresize = "true"
+  #  #size = 100M
+  # }
 }

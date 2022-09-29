@@ -1,0 +1,8 @@
+config BR2_PACKAGE_QWIRELESSCONTROLLER
+	bool "qwirelesscontroller"
+	depends on BR2_PACKAGE_QT5
+	help
+		qt based handler controller. controls all gpio, leds, imagers, etc.
+		also hosts an rtsp server to stream video from connected imagers
+
+		www.inspectrontools.com

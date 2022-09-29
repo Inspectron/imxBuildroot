@@ -1,0 +1,10 @@
+config BR2_PACKAGE_LIBINSPCORE
+	bool "Inspectron Core library"
+	depends on BR2_PACKAGE_QT5
+	help
+		Inspectron core library for features such as: 
+			console colors
+			traceclient support
+		
+		www.inspectrontools.com
+

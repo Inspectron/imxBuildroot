@@ -1,0 +1,12 @@
+config BR2_PACKAGE_LIBINSPFILEHANDLER
+	bool "Inspectron File Handler library"
+	depends on BR2_PACKAGE_QT5
+	help
+		Inspectron File handler library for features such as: 
+			get file Listing for galleries
+			create DCIM dirs
+			delete files & DCIM dirs
+			get next logical file name for media
+		
+		www.inspectrontools.com
+
