@@ -22,7 +22,12 @@ image boot.vfat {
 
 image sdcard.img {
   hdimage {
+    partition-table-type = "gpt"
+    gpt-location = 1M
   }
+
+  # size should be changed for mmc
+  size = 1G
 
   partition spl {
     in-partition-table = "no"
@@ -37,37 +42,36 @@ image sdcard.img {
   }
 
   partition boot {
-    partition-type = 0xC
+    partition-type-uuid = "F"
     bootable = "true"
     image = "boot.vfat"
     offset = 8M
   }
 
   partition rootfs {
-    partition-type = 0x83
+    partition-type-uuid = "L"
     image = "rootfs.ext2"
   }
 
   # application partition
   partition application {
-    partition-type = 0x83
+    partition-type-uuid = "L"
+    partition-uuid = "41061242-1d5a-4657-892d-fcc1fdb11a6c"
     image = "application.ext4"
     offset = 500M
   }
 
   # application data partition
   partition appdata {
-    partition-type = 0x83
+    partition-type-uuid = "L"
+    partition-uuid = "41061242-1d5a-4657-892d-fcc1fdb11a6d"
     image = "appdata.ext4"
-    offset = 600M
   }
 
-  # FAT32 user data partition occupies the remainder of the device
-  # TODO add the userdata partition
-  # partition userdata {
-  #  partition-type = 0x0c
-  #  #mountpoint = /mnt/userdata
-  #  autoresize = "true"
-  #  #size = 100M
-  # }
+  # userdata FAT32 partition occupies the remainder of the device
+  partition userdata {
+    partition-type-uuid = "F"
+    partition-uuid = "41061242-1d5a-4657-892d-fcc1fdb11a6e"
+    autoresize = "true"
+  }
 }
