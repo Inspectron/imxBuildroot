@@ -3,7 +3,7 @@
 # inspscript
 #
 ################################################################################
-INSPSCRIPT_VERSION = 4974c066806469e7b156a7286f5a7e62bd670de2
+INSPSCRIPT_VERSION = d4f604efd314d7f1f4f6a8c8cad75fe221e78701
 INSPSCRIPT_SITE = git@github.com:Inspectron/inspscript.git
 INSPSCRIPT_SITE_METHOD = git
 
@@ -47,6 +47,19 @@ POWER_GPIO_SCRIPT = bk7xxx_powerGPIO.sh
 endif
 
 # install the scripts to the application partition
+ifeq ($(BR2_PACKAGE_INSP_FLUKE_VAVE),y)
+define INSPSCRIPT_INSTALL_TARGET_CMDS
+        # create the application partition folder
+        mkdir -p $(BASE_DIR)/application/scripts
+
+        $(info installing boot script: [$(BOOT_SCRIPT)])
+        # add the boot script to the application/scripts folder
+        $(INSTALL) -D -m 755 $(@D)/$(BOOT_SCRIPT) $(BASE_DIR)/application/scripts/$(DEFAULT_BOOT_SCRIPT)
+
+        # add the init.d scripts to the init.d folder
+        $(INSTALL) -D -m 755 $(@D)/S100InspectronBoot $(TARGET_DIR)/etc/init.d
+endef
+else
 define INSPSCRIPT_INSTALL_TARGET_CMDS
         # create the application partition folder
         mkdir -p $(BASE_DIR)/application/scripts
@@ -55,8 +68,8 @@ define INSPSCRIPT_INSTALL_TARGET_CMDS
         # add the boot script to the application/scripts folder
         $(INSTALL) -D -m 755 $(@D)/$(BOOT_SCRIPT) $(BASE_DIR)/application/scripts/$(DEFAULT_BOOT_SCRIPT)
         $(INSTALL) -D -m 755 $(@D)/startinfra.sh $(BASE_DIR)/appdata/startinfra.sh
-    	$(INSTALL) -D -m 755 $(@D)/starthostapd.sh $(BASE_DIR)/appdata/starthostapd.sh
-    	$(INSTALL) -D -m 755 $(@D)/stophostapd.sh $(BASE_DIR)/appdata/stophostapd.sh
+        $(INSTALL) -D -m 755 $(@D)/starthostapd.sh $(BASE_DIR)/appdata/starthostapd.sh
+        $(INSTALL) -D -m 755 $(@D)/stophostapd.sh $(BASE_DIR)/appdata/stophostapd.sh
 
         # add the power GPIO script
         $(INSTALL) -D -m 755 $(@D)/$(POWER_GPIO_SCRIPT) $(BASE_DIR)/appdata/$(DEFAULT_POWER_GPIO_SCRIPT)
@@ -81,6 +94,7 @@ define INSPSCRIPT_INSTALL_TARGET_CMDS
        # install the gsthelper script
        $(INSTALL) -D -m 755 $(@D)/gsthelper.sh $(BASE_DIR)/application/scripts/gsthelper.sh
 endef
+endif
 
 $(eval $(generic-package))
 
