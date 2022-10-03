@@ -1,0 +1,118 @@
+--- a/elements/gstqtvideosink/delegates/basedelegate.cpp	2022-10-03 16:03:36.964429321 -0400
++++ b/elements/gstqtvideosink/delegates/basedelegate.cpp	2022-10-03 15:49:37.182643434 -0400
+@@ -155,7 +155,7 @@
+         BufferEvent *bufEvent = dynamic_cast<BufferEvent*>(event);
+         Q_ASSERT(bufEvent);
+ 
+-        GST_TRACE_OBJECT(m_sink, "Received buffer %"GST_PTR_FORMAT, bufEvent->buffer);
++        GST_TRACE_OBJECT(m_sink, "Received buffer %" GST_PTR_FORMAT, bufEvent->buffer);
+ 
+         if (isActive()) {
+             gst_buffer_replace (&m_buffer, bufEvent->buffer);
+
+--- a/elements/gstqtvideosink/delegates/qtvideosinkdelegate.cpp	2022-10-03 16:03:36.964429321 -0400
++++ b/elements/gstqtvideosink/delegates/qtvideosinkdelegate.cpp	2022-10-03 15:49:37.182643434 -0400
+@@ -228,7 +228,7 @@
+ 
+ bool QtVideoSinkDelegate::event(QEvent *event)
+ {
+-    if (event->type() == DeactivateEventType) {
++    if ((int)(event->type()) == (int)(DeactivateEventType)) {
+         if (m_painter) {
+             m_painter->cleanup();
+             destroyPainter();
+
+--- a/elements/gstqtvideosink/delegates/qwidgetvideosinkdelegate.cpp	2022-10-03 16:03:36.964429321 -0400
++++ b/elements/gstqtvideosink/delegates/qwidgetvideosinkdelegate.cpp	2022-10-03 15:49:37.182643434 -0400
+@@ -36,7 +36,7 @@
+ 
+ void QWidgetVideoSinkDelegate::setWidget(QWidget *widget)
+ {
+-    GST_LOG_OBJECT(m_sink, "Setting \"widget\" property to %"GST_PTR_FORMAT, widget);
++    GST_LOG_OBJECT(m_sink, "Setting \"widget\" property to %" GST_PTR_FORMAT, widget);
+ 
+     if (m_widget) {
+         m_widget.data()->removeEventFilter(this);
+
+--- a/elements/gstqtvideosink/gstqtquick2videosink.cpp	2022-10-03 16:03:36.964429321 -0400
++++ b/elements/gstqtvideosink/gstqtquick2videosink.cpp	2022-10-03 15:49:37.178643501 -0400
+@@ -248,7 +248,7 @@
+ {
+     GstQtQuick2VideoSink *self = GST_QT_QUICK2_VIDEO_SINK (sink);
+ 
+-    GST_TRACE_OBJECT(self, "Posting new buffer (%"GST_PTR_FORMAT") for rendering.", buffer);
++    GST_TRACE_OBJECT(self, "Posting new buffer (%" GST_PTR_FORMAT ") for rendering.", buffer);
+ 
+     QCoreApplication::postEvent(self->priv->delegate, new BaseDelegate::BufferEvent(buffer));
+ 
+
+--- a/elements/gstqtvideosink/gstqtvideosinkbase.cpp	2022-10-03 16:03:36.964429321 -0400
++++ b/elements/gstqtvideosink/gstqtvideosinkbase.cpp	2022-10-03 15:49:37.178643501 -0400
+@@ -207,7 +207,7 @@
+ {
+     GstQtVideoSinkBase *sink = GST_QT_VIDEO_SINK_BASE(video_sink);
+ 
+-    GST_TRACE_OBJECT(sink, "Posting new buffer (%"GST_PTR_FORMAT") for rendering.", buffer);
++    GST_TRACE_OBJECT(sink, "Posting new buffer (%" GST_PTR_FORMAT ") for rendering.", buffer);
+ 
+     QCoreApplication::postEvent(sink->delegate, new BaseDelegate::BufferEvent(buffer));
+ 
+
+--- a/elements/gstqtvideosink/gstqtvideosinkplugin.h	2022-10-03 16:03:36.964429321 -0400
++++ b/elements/gstqtvideosink/gstqtvideosinkplugin.h	2022-10-03 15:49:37.178643501 -0400
+@@ -27,7 +27,7 @@
+ #define DEFINE_TYPE_FULL(cpp_type, type_name, parent_type, additional_initializations) \
+     GType cpp_type::get_type() \
+     { \
+-        static volatile gsize gonce_data = 0; \
++        static gsize gonce_data = 0; \
+         if (g_once_init_enter(&gonce_data)) { \
+             GType type = 0; \
+             GTypeInfo info; \
+Binary files qt-gstreamer-1.2.0_orig/elements/gstqtvideosink/libgstqt5videosink.so and qt-gstreamer-1.2.0_fixed/elements/gstqtvideosink/libgstqt5videosink.so differ
+
+--- a/src/QGst/caps.cpp	2022-10-03 16:03:37.000428709 -0400
++++ b/src/QGst/caps.cpp	2022-10-03 15:49:37.202643095 -0400
+@@ -54,7 +54,7 @@
+ 
+ void Caps::append(const CapsPtr & caps2)
+ {
+-    gst_caps_append(object<GstCaps>(), gst_caps_copy(caps2));
++    gst_caps_append(object<GstCaps>(), gst_caps_copy(&caps2));
+ }
+ 
+ CapsPtr Caps::merge(CapsPtr & caps2)
+
+--- a/src/QGst/event.cpp	2022-10-03 16:03:37.000428709 -0400
++++ b/src/QGst/event.cpp	2022-10-03 15:49:37.202643095 -0400
+@@ -125,7 +125,7 @@
+ //********************************************************
+ TagEventPtr TagEvent::create(const TagList & taglist)
+ {
+-    GstEvent * e = gst_event_new_tag(gst_tag_list_copy(taglist));
++    GstEvent * e = gst_event_new_tag(gst_tag_list_copy(&taglist));
+     return TagEventPtr::wrap(e, false);
+ }
+ 
+--- a/src/QGst/message.cpp	2022-10-03 16:03:37.000428709 -0400
++++ b/src/QGst/message.cpp	2022-10-03 15:49:37.202643095 -0400
+@@ -157,7 +157,7 @@
+ 
+ TagMessagePtr TagMessage::create(const ObjectPtr & source, const TagList & taglist)
+ {
+-    GstMessage *m = gst_message_new_tag(source, gst_tag_list_copy(taglist));
++    GstMessage *m = gst_message_new_tag(source, gst_tag_list_copy(&taglist));
+     return TagMessagePtr::wrap(m, false);
+ }
+
+--- a/src/QGst/taglist.cpp	2022-10-03 16:03:37.004428643 -0400
++++ b/src/QGst/taglist.cpp	2022-10-03 15:49:37.206643028 -0400
+@@ -32,7 +32,7 @@
+     if (gst_tag_list_get_string_index(list, tag, index, &value)) {
+         return QGlib::Private::stringFromGCharPtr(value);
+     }
+-    return QString::null;
++    return QString();
+ }
+ 
+ quint32 getUintTag(GstTagList * list, const gchar * tag, int index)
