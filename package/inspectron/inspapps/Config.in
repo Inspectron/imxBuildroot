@@ -14,6 +14,7 @@ if BR2_PACKAGE_INSPECTRON_INSP_APPS
 	source "package/inspectron/inspapps/qt-gstreamer/Config.in"
 	# libs
 	source "package/inspectron/inspapps/libinspCore/Config.in"
+	source "package/inspectron/inspapps/libqhttp/Config.in"
 	source "package/inspectron/inspapps/libinspFileHandler/Config.in"
 	# gstreamer plugins
 	
