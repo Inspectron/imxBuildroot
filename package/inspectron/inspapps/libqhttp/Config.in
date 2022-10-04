@@ -1,0 +1,8 @@
+config BR2_PACKAGE_LIBQHTTP
+	bool "Inspectron QT HTTP library"
+	depends on BR2_PACKAGE_QT5
+	help
+		Inspectron library for http client/server
+		
+		www.inspectrontools.com
+

@@ -1,0 +1,7 @@
+config BR2_PACKAGE_QT_GSTREAMER
+	bool "qt-gstreamer"
+	depends on BR2_PACKAGE_QT5 || BR2_PACKAGE_GSTREAMER1
+	help
+		video library
+		http://gstreamer.freedesktop.org
+
