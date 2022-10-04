@@ -37,8 +37,15 @@ define QT_GSTREAMER_INSTALL_STAGING_CMDS
     # install the resources to the staging directory
 
     $(info ------------------ staging ------------------------------ )
+    mkdir -p $(STAGING_DIR)/usr/lib
     mkdir -p $(STAGING_DIR)/usr/include/Qt5GStreamer/QGst
     mkdir -p $(STAGING_DIR)/usr/include/Qt5GStreamer/QGlib
+
+    # libs
+    $(INSTALL) -D -m 0644 $(@D)/src/QGst/libQt5*  $(STAGING_DIR)/usr/lib/
+    $(INSTALL) -D -m 0644 $(@D)/src/QGlib/libQt5*  $(STAGING_DIR)/usr/lib/
+
+    # headers 
     $(INSTALL) -D -m 0644 $(@D)/src/QGst/*.h  $(STAGING_DIR)/usr/include/Qt5GStreamer/QGst/
     $(INSTALL) -D -m 0644 $(@D)/src/QGlib/*.h $(STAGING_DIR)/usr/include/Qt5GStreamer/QGlib/
 
