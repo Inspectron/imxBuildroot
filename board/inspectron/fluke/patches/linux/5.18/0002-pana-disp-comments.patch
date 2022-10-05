@@ -6,7 +6,7 @@
  
 +	// print out the register cmd, length, payload ... 
 +// the page command is mostly hardcoded, see above buffer for values
-+	printk("> REGISTER,FF,03,98,81,%02X \n", page);
++	//printk("> REGISTER,FF,03,98,81,%02X \n", page);
  	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, buf, sizeof(buf));
  	if (ret < 0)
  		return ret;
@@ -15,7 +15,7 @@
  	int ret;
  
 +    // print out the register cmd, length, payload ...
-+    printk("> REGISTER,%02X,01,%02X \n", cmd, data);
++    //printk("> REGISTER,%02X,01,%02X \n", cmd, data);
 +
  	ret = mipi_dsi_dcs_write_buffer(ctx->dsi, buf, sizeof(buf));
  	if (ret < 0)
@@ -52,7 +52,7 @@
 +        return ret;
 +
 +    // delay
-+    printk("> Delay 120ms \n");
++    //printk("> Delay 120ms \n");
 +    msleep(120);
 +
 +    // Insp: turn disp on with: REGISTER,29,01,00
@@ -61,7 +61,7 @@
 +        return ret;
 +
 +    // delay
-+    printk("> Delay 20ms \n");
++    //printk("> Delay 20ms \n");
 +    msleep(20);
  
 -	ret = mipi_dsi_dcs_set_tear_on(ctx->dsi, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
