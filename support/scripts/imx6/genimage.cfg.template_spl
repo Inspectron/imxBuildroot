@@ -51,6 +51,7 @@ image sdcard.img {
   partition rootfs {
     partition-type-uuid = "L"
     image = "rootfs.ext2"
+    size = 250M
   }
 
   # application partition

@@ -356,3 +356,8 @@
     label ="INSP_PWR_OFF";
     status = "okay";
 };
+
+&fec {
+    status = "disabled";
+    label = "INSP_ETH_DISBLD";
+};

@@ -55,9 +55,17 @@ define INSPSCRIPT_INSTALL_TARGET_CMDS
         $(info installing boot script: [$(BOOT_SCRIPT)])
         # add the boot script to the application/scripts folder
         $(INSTALL) -D -m 755 $(@D)/$(BOOT_SCRIPT) $(BASE_DIR)/application/scripts/$(DEFAULT_BOOT_SCRIPT)
+        $(INSTALL) -D -m 755 $(@D)/startinfra.sh $(BASE_DIR)/appdata/startinfra.sh
+        $(INSTALL) -D -m 755 $(@D)/starthostapd.sh $(BASE_DIR)/appdata/starthostapd.sh
+        $(INSTALL) -D -m 755 $(@D)/stophostapd.sh $(BASE_DIR)/appdata/stophostapd.sh
 
         # add the init.d scripts to the init.d folder
         $(INSTALL) -D -m 755 $(@D)/S100InspectronBoot $(TARGET_DIR)/etc/init.d
+
+        # ensure the scripts have the correct wlan interface
+        sed -i -e 's@wlan.@wlan0@g' $(BASE_DIR)/appdata/startinfra.sh
+        sed -i -e 's@wlan.@wlan0@g' $(BASE_DIR)/appdata/starthostapd.sh
+        sed -i -e 's@wlan.@wlan0@g' $(BASE_DIR)/appdata/stophostapd.sh
 endef
 else
 define INSPSCRIPT_INSTALL_TARGET_CMDS
