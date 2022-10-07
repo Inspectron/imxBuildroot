@@ -19,4 +19,5 @@ endchoice
 # Shared packages with all boards
 source "package/inspectron/inspscript/Config.in"
 source "package/inspectron/inspapps/Config.in"
+source "package/inspectron/inspfonts/Config.in"
 endif

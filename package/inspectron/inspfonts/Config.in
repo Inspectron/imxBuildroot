@@ -1,0 +1,50 @@
+config BR2_PACKAGE_INSPFONTS
+	bool "Inspectron system fonts"
+	help
+		Inspectron project specific fonts
+		
+		www.inspectrontools.com
+
+if BR2_PACKAGE_INSPFONTS
+
+config BR2_PACKAGE_INSPFONTS_ROBOTO_BOLD
+	bool "Roboto Bold font"
+	default y
+
+config BR2_PACKAGE_INSPFONTS_ROBOTO_LIGHT
+	bool "Roboto Light font"
+	default y
+
+config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_JP_BOLD
+	bool "Noto Sans CJK Japanese Bold"
+	default y
+
+config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_JP_LIGHT
+	bool "Noto Sans CJK Japanese Light"
+	default y
+
+config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_KR_BOLD
+	bool "Noto Sans CJK Korean Bold"
+	default y
+
+config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_KR_LIGHT
+	bool "Noto Sans CJK Korean Light"
+	default y
+
+config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_SC_BOLD
+	bool "Noto Sans CJK Simple Chinese Bold"
+	default y
+
+config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_SC_LIGHT
+	bool "Noto Sans CJK Simple Chinese Light"
+	default y
+
+config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_TC_BOLD
+	bool "Noto Sans CJK Traditional Chinese Bold"
+	default y
+
+config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_TC_LIGHT
+	bool "Noto Sans CJK Traditional Chinese Light"
+	default y
+
+endif
