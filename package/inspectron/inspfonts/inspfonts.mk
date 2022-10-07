@@ -10,44 +10,32 @@ INSPFONTS_SITE_METHOD = local
 
 INSPFONTS_FONTS_INSTALL =
 
-ifeq ($(BR2_PACKAGE_INSPFONTS_ROBOTO_BOLD), y)
-        INSPFONTS_FONTS_INSTALL += Roboto-Bold.ttf
+ifeq ($(BR2_PACKAGE_INSPFONTS_ROBOTO), y)
+        INSPFONTS_FONTS_INSTALL += Roboto-*.ttf
 endif
 
-ifeq ($(BR2_PACKAGE_INSPFONTS_ROBOTO_LIGHT), y)
-        INSPFONTS_FONTS_INSTALL += Roboto-Light.ttf
+ifeq ($(BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_JP), y)
+        INSPFONTS_FONTS_INSTALL += NotoSansCJKjp-*.otf
 endif
 
-ifeq ($(BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_JP_BOLD), y)
-        INSPFONTS_FONTS_INSTALL += NotoSansCJKjp-Bold.otf
+ifeq ($(BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_KR), y)
+        INSPFONTS_FONTS_INSTALL += NotoSansCJKkr-*.otf
 endif
 
-ifeq ($(BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_JP_LIGHT), y)
-        INSPFONTS_FONTS_INSTALL += NotoSansCJKjp-Light.otf
+ifeq ($(BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_SC), y)
+        INSPFONTS_FONTS_INSTALL += NotoSansCJKsc-*.otf
 endif
 
-ifeq ($(BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_KR_BOLD), y)
-        INSPFONTS_FONTS_INSTALL += NotoSansCJKkr-Bold.otf
+ifeq ($(BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_TC), y)
+        INSPFONTS_FONTS_INSTALL += NotoSansCJKtc-*.otf
 endif
 
-ifeq ($(BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_KR_LIGHT), y)
-        INSPFONTS_FONTS_INSTALL += NotoSansCJKkr-Light.otf
+ifeq ($(BR2_PACKAGE_INSPFONTS_AVENIRLT_STD), y)
+        INSPFONTS_FONTS_INSTALL += NotoSansCJKtc-*.otf
 endif
 
-ifeq ($(BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_SC_BOLD), y)
-        INSPFONTS_FONTS_INSTALL += NotoSansCJKsc-Bold.otf
-endif
-
-ifeq ($(BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_SC_LIGHT), y)
-        INSPFONTS_FONTS_INSTALL += NotoSansCJKsc-Light.otf
-endif
-
-ifeq ($(BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_TC_BOLD), y)
-        INSPFONTS_FONTS_INSTALL += NotoSansCJKtc-Bold.otf
-endif
-
-ifeq ($(BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_TC_LIGHT), y)
-        INSPFONTS_FONTS_INSTALL += NotoSansCJKtc-Light.otf
+ifeq ($(BR2_PACKAGE_INSPFONTS_FONT_AWESOME), y)
+        INSPFONTS_FONTS_INSTALL += fontawesome-webfont.ttf
 endif
 
 # install the scripts to the application partition

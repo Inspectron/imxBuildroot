@@ -7,44 +7,37 @@ config BR2_PACKAGE_INSPFONTS
 
 if BR2_PACKAGE_INSPFONTS
 
-config BR2_PACKAGE_INSPFONTS_ROBOTO_BOLD
-	bool "Roboto Bold font"
+config BR2_PACKAGE_INSPFONTS_ROBOTO
+	bool "Roboto Bold, Light and Regular fonts"
 	default y
 
 config BR2_PACKAGE_INSPFONTS_ROBOTO_LIGHT
 	bool "Roboto Light font"
 	default y
 
-config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_JP_BOLD
-	bool "Noto Sans CJK Japanese Bold"
+config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_JP
+	bool "NotoSans CJK Japanese Bold & Light fonts"
 	default y
 
-config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_JP_LIGHT
-	bool "Noto Sans CJK Japanese Light"
+config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_KR
+	bool "NotoSans CJK Korean Bold & Light fonts"
 	default y
 
-config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_KR_BOLD
-	bool "Noto Sans CJK Korean Bold"
+config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_SC
+	bool "NotoSans CJK Simple Chinese Bold & Light fonts"
 	default y
 
-config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_KR_LIGHT
-	bool "Noto Sans CJK Korean Light"
+config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_TC
+	bool "NotoSans CJK Traditional Chinese Bold & Light fonts"
 	default y
 
-config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_SC_BOLD
-	bool "Noto Sans CJK Simple Chinese Bold"
+config BR2_PACKAGE_INSPFONTS_AVENIRLT_STD
+	bool "AvenirLTStd-Black, AvenirLTStd-Book, AvenirLTStd-Roman fonts"
 	default y
 
-config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_SC_LIGHT
-	bool "Noto Sans CJK Simple Chinese Light"
-	default y
-
-config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_TC_BOLD
-	bool "Noto Sans CJK Traditional Chinese Bold"
-	default y
-
-config BR2_PACKAGE_INSPFONTS_NOTOSANS_CJK_TC_LIGHT
-	bool "Noto Sans CJK Traditional Chinese Light"
-	default y
+config BR2_PACKAGE_INSPFONTS_FONT_AWESOME
+	bool "font-awesome font "
+	default n
 
 endif
+
