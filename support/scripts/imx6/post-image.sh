@@ -94,11 +94,6 @@ main()
 
 	rm -rf "${GENIMAGE_TMP}"
 
-	################################################
-	### create mnt directories for the partitions ##
-	################################################
-	mkdir -p $TARGET_DIR/mnt/app $TARGET_DIR/mnt/appdata $TARGET_DIR/mnt/userdata
-
 	genimage \
 		--rootpath "${TARGET_DIR}" \
 		--tmppath "${GENIMAGE_TMP}" \
