@@ -3,7 +3,7 @@
 # inspscript
 #
 ################################################################################
-INSPSCRIPT_VERSION = d4f604efd314d7f1f4f6a8c8cad75fe221e78701
+INSPSCRIPT_VERSION = ad3729f572faa9ad2e685c6c8d75fa7b970a367b
 INSPSCRIPT_SITE = git@github.com:Inspectron/inspscript.git
 INSPSCRIPT_SITE_METHOD = git
 
@@ -61,6 +61,8 @@ define INSPSCRIPT_INSTALL_TARGET_CMDS
 
         # add the init.d scripts to the init.d folder
         $(INSTALL) -D -m 755 $(@D)/S100InspectronBoot $(TARGET_DIR)/etc/init.d
+        $(INSTALL) -D -m 755 $(@D)/S50usbdevice $(TARGET_DIR)/etc/init.d
+        $(INSTALL) -D -m 755 $(@D)/.usb_config $(TARGET_DIR)/etc/init.d
 
         # ensure the scripts have the correct wlan interface
         sed -i -e 's@wlan.@wlan0@g' $(BASE_DIR)/appdata/startinfra.sh
