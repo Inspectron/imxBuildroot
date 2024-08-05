@@ -24,3 +24,23 @@ You can also find us on #buildroot on OFTC IRC.
 
 If you would like to contribute patches, please read
 https://buildroot.org/manual.html#submitting-patches
+
+
+## Wiscope Murata
+
+## Setup
+* stop build at uboot & run this command: (it doesnt auto detect the version for the device tree)
+``` bash
+> setenv som_rev V15
+> boot
+```
+
+## Checklist
+
+- [x] wiscope buildroot configuration is started
+- [x] bluetooth can scan
+- [ ] uboot rev fixed
+- [ ] wifi is working
+- [ ] poweroff command works on hummingboard
+- [ ] wiscope software ported to buildroot
+- [ ] system level configuration (user password, uboot timeout, etc)
