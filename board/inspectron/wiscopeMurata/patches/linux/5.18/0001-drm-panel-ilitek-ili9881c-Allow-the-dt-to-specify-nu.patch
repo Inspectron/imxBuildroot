@@ -1,0 +1,43 @@
+From ee1b1711c32e1abe3526e875daaeb64a0b28fdda Mon Sep 17 00:00:00 2001
+From: Jon Nettleton <jon@solid-run.com>
+Date: Fri, 5 Aug 2022 09:09:07 +0200
+Subject: [PATCH] drm/panel: ilitek-ili9881c: Allow the dt to specify number of
+ lanes
+
+Although most the initialization commands are hard coded per panel
+There is the ability for a panel to run using 2,3,4. This adds the
+ability to change the data lanes usage which can be needed by the
+bridge adapter when linking to a controller that has a limit.
+
+The number of lanes is controlled by the pad mapping of
+the controller along with setting of Page4 Register00 Bit7. For
+now we add this device-tree property reading and then future
+implementations can choose to use it or not for the command
+sequence.
+
+Signed-off-by: Jon Nettleton <jon@solid-run.com>
+---
+ drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+index ba30d11547ad..fb0f80f5b11b 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+@@ -906,7 +906,12 @@ static int ili9881c_dsi_probe(struct mipi_dsi_device *dsi)
+ 
+ 	dsi->mode_flags = ctx->desc->mode_flags;
+ 	dsi->format = MIPI_DSI_FMT_RGB888;
+-	dsi->lanes = 4;
++
++	ret = of_property_read_u32(dsi->dev.of_node, "dsi-lanes", &dsi->lanes);
++	if (ret) {
++		dev_info(&dsi->dev, "Failed to get dsi-lanes property using default of 4\n");
++		dsi->lanes = 4;
++	}
+ 
+ 	return mipi_dsi_attach(dsi);
+ }
+-- 
+2.37.1
+

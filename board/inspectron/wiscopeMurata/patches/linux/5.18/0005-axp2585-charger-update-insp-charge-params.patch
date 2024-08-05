@@ -1,0 +1,14 @@
+--- a/drivers/power/supply/axp/axp2585/axp2585-charger.c	2022-10-05 17:14:38.060582769 -0400
++++ b/drivers/power/supply/axp/axp2585/axp2585-charger.c	2022-10-05 17:20:16.022896619 -0400
+@@ -502,6 +502,11 @@
+ 	axp_regmap_update(map, AXP2585_ADJUST_PARA1, i, 0xC0);
+ 	printk("==%s==line:%d==file:%s==\n",__func__,__LINE__,__FILE__);
+ 
++	/* INSP: set charge termination to 512 mA */
++	axp_regmap_update(map, 0x8d, 0x38, 0x78);
++	/* INSP: enable cc pin detection */
++	axp_regmap_update(map, 0x22, 0x02, 0x02);
++
+ 	return 0;
+ }
+ 
