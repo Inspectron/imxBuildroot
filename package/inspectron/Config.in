@@ -5,14 +5,20 @@ menuconfig BR2_PACKAGE_INSPECTRON
 
 if BR2_PACKAGE_INSPECTRON
 choice
-	default BR2_PACKAGE_INSP_FLUKE_VAVE
+	default BR2_PACKAGE_INSP_WISCOPE_MURATA
 	prompt "Inspectron board selection"
+
+config BR2_PACKAGE_INSP_WISCOPE_MURATA
+	bool "Inspectron Murata WiScope"
+	help
+		Use Inspectron's Murata Wiscope
 
 config BR2_PACKAGE_INSP_FLUKE_VAVE
 	bool "Inspectron Fluke VAVE"
 	help
 		Use Inspectron's Fluke VAVE board
 endchoice
+
 
 # BSP packages
 
