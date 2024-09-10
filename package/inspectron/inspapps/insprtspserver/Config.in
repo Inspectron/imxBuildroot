@@ -1,0 +1,7 @@
+config BR2_PACKAGE_INSPRTSPSERVER
+	bool "rtsp server"
+	depends on BR2_PACKAGE_QT5
+	help
+		a simple application that hosts an rtsp server to stream live video 
+		from the imager
+
