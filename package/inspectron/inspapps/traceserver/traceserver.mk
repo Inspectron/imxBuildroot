@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-TRACESERVER_VERSION = 643b208f3e0ee2b450b89f6d8590d30441dc275c
+TRACESERVER_VERSION = 28656cc7f7ae820c6ab6077bfb345df62864b887
 TRACESERVER_SITE = git@github.com:Inspectron/TraceServer.git
 TRACESERVER_SITE_METHOD = git
 TRACESERVER_DEPENDENCIES = qt5base libqmqtt

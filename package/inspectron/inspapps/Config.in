@@ -9,13 +9,16 @@ if BR2_PACKAGE_INSPECTRON_INSP_APPS
 	# apps
 	source "package/inspectron/inspapps/qwirelesscontroller/Config.in"
 	source "package/inspectron/inspapps/flukehmi/Config.in"
+	source "package/inspectron/inspapps/imagecapturer/Config.in"
 	source "package/inspectron/inspapps/traceserver/Config.in"
 	source "package/inspectron/inspapps/healthmonitor/Config.in"
 	source "package/inspectron/inspapps/qt-gstreamer/Config.in"
+	source "package/inspectron/inspapps/insprtspserver/Config.in"
 	# libs
 	source "package/inspectron/inspapps/libinspCore/Config.in"
 	source "package/inspectron/inspapps/libqhttp/Config.in"
 	source "package/inspectron/inspapps/libinspFileHandler/Config.in"
+	source "package/inspectron/inspapps/libqmqtt/Config.in"
 	# gstreamer plugins
 	
 	#scripts

@@ -4,7 +4,7 @@
 #
 ################################################################################
 # branch fluke 
-QWIRELESSCONTROLLER_VERSION = 88fcec443b5d89bfb66b79b7f94c75b08d40ead4
+QWIRELESSCONTROLLER_VERSION = a3d3a63a10da9793c8e5f6d9fab9578aeabe5e5d
 QWIRELESSCONTROLLER_SITE = git@github.com:Inspectron/qWirelessController.git
 QWIRELESSCONTROLLER_SITE_METHOD = git
 QWIRELESSCONTROLLER_DEPENDENCIES = qt5base libinspFileHandler qt5connectivity 
@@ -13,7 +13,12 @@ QWIRELESSCONTROLLER_DEPENDENCIES = qt5base libinspFileHandler qt5connectivity
 #based on the configured board
 ifeq ($(BR2_PACKAGE_INSP_FLUKE_VAVE),y)
 QWIRELESSCONTROLLER_PRO_FILE = trunk/qWirelessControllerFluke.pro
-QWIRELESSCONTROLLER_SETTINGS_FILE = trunk/config/witorch/inspSettings.json
+QWIRELESSCONTROLLER_SETTINGS_FILE = trunk/config/fluke/inspSettings.json
+endif
+
+ifeq ($(BR2_PACKAGE_INSP_WISCOPE_MURATA),y)
+QWIRELESSCONTROLLER_PRO_FILE = trunk/qWirelessControllerWifiHandle.pro
+QWIRELESSCONTROLLER_SETTINGS_FILE = trunk/config/wifihandle/inspSettings.json
 endif
 
 define QWIRELESSCONTROLLER_CONFIGURE_CMDS

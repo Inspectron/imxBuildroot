@@ -3,7 +3,7 @@
 # inspscript
 #
 ################################################################################
-INSPSCRIPT_VERSION = ad3729f572faa9ad2e685c6c8d75fa7b970a367b
+INSPSCRIPT_VERSION = 7eb46916e43fe2bab802f48374e1d76328946686
 INSPSCRIPT_SITE = git@github.com:Inspectron/inspscript.git
 INSPSCRIPT_SITE_METHOD = git
 
@@ -19,6 +19,10 @@ endif
 
 ifeq ($(BR2_PACKAGE_INSP_TINKERBOARD),y)
 BOOT_SCRIPT = witorch_boot.sh
+endif
+
+ifeq ($(BR2_PACKAGE_INSP_WISCOPE_MURATA),y)
+BOOT_SCRIPT = wiscope_boot.sh
 endif
 
 ifeq ($(BR2_PACKAGE_INSP_ROCKCHIP_EVB),y)
@@ -68,6 +72,19 @@ define INSPSCRIPT_INSTALL_TARGET_CMDS
         sed -i -e 's@wlan.@wlan0@g' $(BASE_DIR)/appdata/startinfra.sh
         sed -i -e 's@wlan.@wlan0@g' $(BASE_DIR)/appdata/starthostapd.sh
         sed -i -e 's@wlan.@wlan0@g' $(BASE_DIR)/appdata/stophostapd.sh
+endef
+else ifeq ($(BR2_PACKAGE_INSP_WISCOPE_MURATA),y)
+define INSPSCRIPT_INSTALL_TARGET_CMDS
+        # create the application partition folder
+        mkdir -p $(BASE_DIR)/application/scripts
+
+        $(info installing boot script: [$(BOOT_SCRIPT)])
+        # add the boot script to the application/scripts folder
+        $(INSTALL) -D -m 755 $(@D)/$(BOOT_SCRIPT) $(BASE_DIR)/application/scripts/$(DEFAULT_BOOT_SCRIPT)
+
+        # add the init.d scripts to the init.d folder
+        $(INSTALL) -D -m 755 $(@D)/S100InspectronBoot $(TARGET_DIR)/etc/init.d
+
 endef
 else
 define INSPSCRIPT_INSTALL_TARGET_CMDS

@@ -1,0 +1,9 @@
+config BR2_PACKAGE_LIBQMQTT
+	bool "QT MQTT Library"
+	depends on BR2_PACKAGE_QT5
+	help
+		Library for connecting as an MQTT client in QT
+		
+		www.inspectrontools.com
+		https://github.com/emqtt/qmqtt
+
