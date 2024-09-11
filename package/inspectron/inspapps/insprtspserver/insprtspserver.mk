@@ -4,37 +4,16 @@
 #
 ################################################################################
 
-INSPRTSPSERVER_VERSION = 32dd5b14d90c48ba8a5ab1315ef4d76ba3f1b0ac
+INSPRTSPSERVER_VERSION = 98a368dc69d4b62ae16bb26e37667be358e73829
 INSPRTSPSERVER_SITE = git@github.com:Inspectron/inspRTSPserver.git
 INSPRTSPSERVER_SITE_METHOD = git
 INSPRTSPSERVER_DEPENDENCIES = qt5base gst1-rtsp-server
 
-RTSP_PRO_FILE = inspRTSPserverWitorch.pro
+RTSP_PRO_FILE = inspRTSPserver.pro
 #define the project files that will be used in the qmake command
 #based on the configured board
-ifeq ($(BR2_PACKAGE_INSP_TINKERBOARD),y)
-RTSP_PRO_FILE = inspRTSPserverWitorch.pro
-endif
-
-ifeq ($(BR2_PACKAGE_INSP_ROCKCHIP_EVB),y)
-RTSP_PRO_FILE = inspRTSPserverWitorch.pro
-endif
-
-ifeq ($(BR2_PACKAGE_INSP_WITORCH),y)
-RTSP_PRO_FILE = inspRTSPserverWitorch.pro
-endif
-
-ifeq ($(BR2_PACKAGE_INSP_ROTH_I3000),y)
-RTSP_PRO_FILE = inspRTSPserverRothi3000.pro
-endif
-
-ifeq ($(BR2_PACKAGE_INSP_ROCAM_MAXI),y)
-#TODO: Need to change the pro name
-RTSP_PRO_FILE = inspRTSPserverRothi3000.pro
-endif
-
-ifeq ($(BR2_PACKAGE_INSP_PROREEL), y)
-RTSP_PRO_FILE = inspRTSPserverProModule.pro
+ifeq ($(BR2_PACKAGE_INSP_WISCOPE_MURATA),y)
+RTSP_PRO_FILE = inspRTSPserverWiScope.pro
 endif
 
 define INSPRTSPSERVER_CONFIGURE_CMDS

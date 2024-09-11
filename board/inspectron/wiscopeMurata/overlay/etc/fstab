@@ -6,6 +6,6 @@ tmpfs		/dev/shm	tmpfs	mode=0777	0	0
 tmpfs		/tmp		tmpfs	mode=1777	0	0
 tmpfs		/run		tmpfs	mode=0755,nosuid,nodev	0	0
 sysfs		/sys		sysfs	defaults	0	0
-/dev/mmcblk1p3	/mnt/app	ext4	defaults	0	2
-/dev/mmcblk1p4	/mnt/appdata	ext4	defaults	0	2
-/dev/mmcblk1p5	/mnt/userdata	vfat	defaults	0	2
+/dev/mmcblk2p3	/mnt/app	ext4	defaults	0	2
+/dev/mmcblk2p4	/mnt/appdata	ext4	defaults	0	2
+/dev/mmcblk2p5	/mnt/userdata	vfat	defaults	0	2
