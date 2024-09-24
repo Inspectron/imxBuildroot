@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-INSPRTSPSERVER_VERSION = 6151cc0eb3cf39f1cca406cb72ffb0f122601a40
+INSPRTSPSERVER_VERSION = de3a6ec1b423b8c96e6fd4bdc9f1c2dd126157dd
 INSPRTSPSERVER_SITE = git@github.com:Inspectron/inspRTSPserver.git
 INSPRTSPSERVER_SITE_METHOD = git
 INSPRTSPSERVER_DEPENDENCIES = qt5base gst1-rtsp-server
