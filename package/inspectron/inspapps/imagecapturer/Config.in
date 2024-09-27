@@ -1,0 +1,6 @@
+config BR2_PACKAGE_IMAGECAPTURER
+	bool "img_capturer"
+	depends on BR2_PACKAGE_QT5
+	help
+		application for capturing images
+

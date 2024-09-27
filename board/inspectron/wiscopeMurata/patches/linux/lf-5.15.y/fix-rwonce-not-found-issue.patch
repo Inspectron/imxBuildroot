@@ -1,0 +1,9 @@
+--- a/include/linux/compiler.h	2023-09-12 18:17:59.000000000 -0400
++++ b/include/linux/compiler.h	2024-09-25 16:36:41.209724867 -0400
+@@ -252,6 +252,4 @@ static inline void *offset_to_ptr(const
+  */
+ #define prevent_tail_call_optimization()	mb()
+ 
+-#include <asm/rwonce.h>
+-
+ #endif /* __LINUX_COMPILER_H */

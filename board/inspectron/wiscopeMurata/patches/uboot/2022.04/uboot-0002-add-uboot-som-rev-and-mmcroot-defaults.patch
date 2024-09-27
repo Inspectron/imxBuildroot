@@ -1,0 +1,12 @@
+--- a/include/configs/mx6cuboxi.h 2024-09-10 09:26:54.465256121 -0400
++++ b/include/configs/mx6cuboxi.h 2024-09-11 10:24:40.294969402 -0400
+@@ -37,7 +37,8 @@
+ 
+ #ifndef CONFIG_SPL_BUILD
+ #define CONFIG_EXTRA_ENV_SETTINGS \
+-	"som_rev=undefined\0" \
++	"som_rev=V15\0" \
++	"mmcroot=/dev/mmcblk2p2 rootwait rw\0" \
+ 	"has_emmc=undefined\0" \
+ 	"fdtfile=undefined\0" \
+ 	"fdt_addr_r=0x18000000\0" \
