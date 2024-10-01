@@ -3,7 +3,7 @@
 # inspscript
 #
 ################################################################################
-INSPSCRIPT_VERSION = 24b4eb4d8219d6600a33bfd8386fc53f56be9c8f
+INSPSCRIPT_VERSION = 85da3871a219a5e207784e109f7c89cb21735d5f
 INSPSCRIPT_SITE = git@github.com:Inspectron/inspscript.git
 INSPSCRIPT_SITE_METHOD = git
 
@@ -83,7 +83,7 @@ define INSPSCRIPT_INSTALL_TARGET_CMDS
         $(INSTALL) -D -m 755 $(@D)/$(BOOT_SCRIPT) $(BASE_DIR)/application/scripts/$(DEFAULT_BOOT_SCRIPT)
 
         # add the init.d scripts to the init.d folder
-        #$(INSTALL) -D -m 755 $(@D)/S100InspectronBoot $(TARGET_DIR)/etc/init.d
+        $(INSTALL) -D -m 755 $(@D)/S100InspectronBoot $(TARGET_DIR)/etc/init.d
 
 endef
 else
