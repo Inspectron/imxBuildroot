@@ -3,7 +3,7 @@
 # healthmonitor
 #
 ################################################################################
-HEALTHMONITOR_VERSION = a590ac749f4d99d00b6aecbbedc843fafd010d7e
+HEALTHMONITOR_VERSION = 0f2637fb8718a54da884384ff4ce9b28f87b3acb
 HEALTHMONITOR_SITE = git@github.com:Inspectron/healthmonitor.git
 HEALTHMONITOR_SITE_METHOD = git
 HEALTHMONITOR_DEPENDENCIES = qt5base
