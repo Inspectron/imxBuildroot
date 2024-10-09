@@ -3,7 +3,7 @@
 # inspscript
 #
 ################################################################################
-INSPSCRIPT_VERSION = 9cd431c5aa642a3797158e9267f1b922001f1e7a
+INSPSCRIPT_VERSION = 93eafe5041765f405c3d5add458b574b189dfdbd
 INSPSCRIPT_SITE = git@github.com:Inspectron/inspscript.git
 INSPSCRIPT_SITE_METHOD = git
 
@@ -77,6 +77,7 @@ else ifeq ($(BR2_PACKAGE_INSP_WISCOPE_MURATA),y)
 define INSPSCRIPT_INSTALL_TARGET_CMDS
         # create the application partition folder
         mkdir -p $(BASE_DIR)/application/scripts
+        mkdir -p $(BASE_DIR)/appdata
 
         $(info installing boot script: [$(BOOT_SCRIPT)])
         # add the boot script to the application/scripts folder
@@ -84,6 +85,9 @@ define INSPSCRIPT_INSTALL_TARGET_CMDS
 
         # add the init.d scripts to the init.d folder
         $(INSTALL) -D -m 755 $(@D)/S100InspectronBoot $(TARGET_DIR)/etc/init.d
+        $(INSTALL) -D -m 755 $(@D)/wiscope_startinfra.sh $(BASE_DIR)/appdata/startinfra.sh
+        $(INSTALL) -D -m 755 $(@D)/wiscope_starthostapd.sh $(BASE_DIR)/appdata/starthostapd.sh
+        $(INSTALL) -D -m 755 $(@D)/wiscope_stophostapd.sh $(BASE_DIR)/appdata/stophostapd.sh
 
 endef
 else

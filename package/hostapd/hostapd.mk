@@ -149,11 +149,4 @@ define HOSTAPD_INSTALL_TARGET_CMDS
 		$(TARGET_DIR)/etc/hostapd.conf
 endef
 
-define HOSTAPD_INSTALL_INIT_SYSV
-	mkdir -p $(BASE_DIR)/appdata
-
-    # install the hostapd script to the appdata partition
-	$(INSTALL) -m 755 -D package/hostapd/S79hostapd $(BASE_DIR)/appdata/S79hostapd
-endef
-
 $(eval $(generic-package))
