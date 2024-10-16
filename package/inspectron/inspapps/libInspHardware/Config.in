@@ -1,0 +1,11 @@
+config BR2_PACKAGE_LIBINSPHARDWARE
+	bool "Inspectron Hardware Communication library"
+	depends on BR2_PACKAGE_QT5
+	help
+		Inspectron hardware communications such as: 
+			gpio
+			i2c
+			spi
+		
+		www.inspectrontools.com
+
