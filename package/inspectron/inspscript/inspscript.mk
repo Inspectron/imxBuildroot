@@ -3,7 +3,7 @@
 # inspscript
 #
 ################################################################################
-INSPSCRIPT_VERSION = 93eafe5041765f405c3d5add458b574b189dfdbd
+INSPSCRIPT_VERSION = 19d6a6f45f9cf4121c558bf68d0802232a8968fc
 INSPSCRIPT_SITE = git@github.com:Inspectron/inspscript.git
 INSPSCRIPT_SITE_METHOD = git
 
