@@ -4,7 +4,7 @@
 #
 ################################################################################
 # branch fluke 
-QWIRELESSCONTROLLER_VERSION = 4ca7c26a738770029ad2ecd2458301b58e7b70ed
+QWIRELESSCONTROLLER_VERSION = 1ad564683069b0a2c2c7d928d8c97c4236071504
 QWIRELESSCONTROLLER_SITE = git@github.com:Inspectron/qWirelessController.git
 QWIRELESSCONTROLLER_SITE_METHOD = git
 QWIRELESSCONTROLLER_DEPENDENCIES = qt5base libinspFileHandler qt5connectivity 
